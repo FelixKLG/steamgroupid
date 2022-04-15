@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import ReactDOM from 'react-dom';
-
+import Script from 'next/script';
 
 export default function Home() {
     const getID = async event => {
@@ -22,6 +22,8 @@ export default function Home() {
                 <title>Steam Group ID</title>
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
+            <Script async defer data-website-id="b085d95c-9868-424f-b611-d941c7172c52" src="https://analytics.felixklg.dev/VwDrVUy9RFqbFd6.js"></Script>
+
             <div className={'flex flex-row justify-center items-center w-screen bg-black min-h-screen'}>
                 <div className={'text-center text-white'}>
                     <div className={'font-bold text-2xl p-5'}>
