@@ -15,8 +15,8 @@ export default async function handler(req, res) {
 
         res.status(200).json({status: 200, groupId: gid64})
     } catch {
-        res.status(400).json({
-            status: 400,
+        res.status(404).json({
+            status: 404,
             error: 'Bad Request'
         })
     }
