@@ -6,13 +6,16 @@ export default function Home() {
     const getID = async event => {
         event.preventDefault();
 
+        const resultField = document.getElementById("resultField")
+
+        ReactDOM.render('Loading...', resultField);
+
         const res = await fetch(`/api/fetch/${event.target.slug.value}`, {
             method: 'GET',
         });
 
         const result = await res.json();
-        const idReturnField = document.getElementById("idReturnField")
-        ReactDOM.render(result.groupId, idReturnField);
+        result.status === 200 ? ReactDOM.render(result.groupId, resultField) : ReactDOM.render(`An error occurred: code ${result.status}`, resultField)
 
     }
 
@@ -22,17 +25,18 @@ export default function Home() {
                 <title>Steam Group ID</title>
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
-            <Script async defer data-website-id="b085d95c-9868-424f-b611-d941c7172c52" src="https://aly.felixklg.dev/VwDrVUy9RFqbFd6.js"></Script>
+            <Script async defer data-website-id={process.env.NEXT_PUBLIC_ANALYTICS_ID}
+                    src={process.env.NEXT_PUBLIC_ANALYTICS_URL} />
 
             <div className={'flex flex-row justify-center items-center w-screen bg-black min-h-screen'}>
                 <div className={'text-center text-white'}>
-                    <div className={'font-bold text-2xl p-5'}>
+                    <div className={'font-bold text-2xl'}>
                         Enter your Steam group slug.
                     </div>
                     <div>
                         <form onSubmit={getID}>
                             <input id='slug'
-                                   className={'w-20 p-2 border-2 border-gray-300 rounded-2xl bg-black text-center'}
+                                   className={'w-20 p-2 border-2 border-gray-300 rounded-2xl bg-black text-center m-3'}
                                    required/>
                             <button type={'submit'}
                                     className={'w-20 p-2 border-2 border-gray-300 rounded-2xl bg-black text-center'}>
@@ -40,8 +44,9 @@ export default function Home() {
                             </button>
                         </form>
                     </div>
-                    <div id={'idReturnField'} className={'text-center text-white p-5'}>
-
+                    <div className={'text-center text-white p-5'}>
+                        Result:
+                        <p id={'resultField'}/>
                     </div>
                 </div>
             </div>
